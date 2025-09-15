@@ -1,9 +1,12 @@
 import requests
 import data
+import allure
 
 
 class TestLoginCourier:
 
+    @allure.title('Проверка логин курьера')
+    @allure.description('Создание курьера через фикстуру, проверка позитивного сценария логина')
     def test_login_courier_positive_check_response(self, register_new_courier_and_return_login_password):
         login, password, first_name = register_new_courier_and_return_login_password
 
@@ -17,6 +20,8 @@ class TestLoginCourier:
         assert response.status_code == 200, "Response code is not 200"
         assert response.json().get("id"), "Field 'id' missing or empty"
 
+    @allure.title('Проверка логин курьера без логина')
+    @allure.description('Создание курьера через фикстуру, проверка негативного сценария логина')
     def test_login_courier_without_login_check_response(self, register_new_courier_and_return_login_password):
         login, password, first_name = register_new_courier_and_return_login_password
 
@@ -29,6 +34,8 @@ class TestLoginCourier:
         assert response.status_code == 400, "Response code is not 400"
         assert response.json()["message"] == "Недостаточно данных для входа", "Wrong response body"
 
+    @allure.title('Проверка логин курьера с несуществющим логином и паролем')
+    @allure.description('Создание курьера через фикстуру, проверка негативного сценария логина')
     def test_wrong_credentials_check_response(self):
         login, password = data.WRONG_CREDENTIALS
 

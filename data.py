@@ -2,7 +2,7 @@ TEST_URL = "https://qa-scooter.praktikum-services.ru"
 
 WRONG_CREDENTIALS = ["wrong_login", "wrong_pass"]
 
-NEGATIVE_COURIER_DATA = [["", 400, "Недостаточно данных для удаления курьера"], [99999999, 404, "Курьера с таким id нет."]]
+NEGATIVE_COURIER_DATA = [["", 404, "Not Found."], [99999999, 404, "Курьера с таким id нет."]]
 
 ORDER_DATA = {
     "firstName": "Naruto",

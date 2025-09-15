@@ -1,10 +1,13 @@
 import requests
 import data
 import pytest
+import allure
 
 
 class TestAcceptOrder:
 
+    @allure.title('Проверка успешного принятия заказа')
+    @allure.description('Фикстура создает курьера и заказ, после проеряется позитивынй сценарий принятия заказа')
     def test_accept_order_positive_check_response(self, register_new_courier_and_return_id, create_new_order_and_return_id):
         order_id = create_new_order_and_return_id
         courier_id = register_new_courier_and_return_id
@@ -17,6 +20,8 @@ class TestAcceptOrder:
         assert response.status_code == 200, "Response code is not 200"
         assert response.json() == {"ok": True}, "Wrong response body"
 
+    @allure.title('Проверка негативного сценариея принятия заказа с неправильный ID')
+    @allure.description('Фикстура создает курьера и заказ, после проеряется негативный сценарий принятия заказа {negative_data}')
     @pytest.mark.parametrize("negative_data", data.NEGATIVE_ORDER_DATA)
     def test_wrong_ids_negative_check_response(self, register_new_courier_and_return_id, create_new_order_and_return_id, negative_data):
         if type(negative_data["order_id"]) == int:

@@ -2,10 +2,13 @@ import pytest
 import requests
 import data
 import json
+import allure
 
 
 class TestCreatingOrder:
 
+    @allure.title('Проверка создния заказа с набором цветов')
+    @allure.description('Создание заказа с цветом {color}')
     @pytest.mark.parametrize("color", data.COLOR_VARIANTS)
     def test_creating_order_positive_check_response(self, color):
         prep_payload = data.ORDER_DATA
